@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stone paper scissors</title>
+    <style>
+        body{
+            font-weight: bold;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #container{
+            margin:10px;
+
+        }
+        #container button{
+            min-width: 160px;
+            margin-top:5px;
+            margin-bottom: 5px;
+            border-radius: 160px;
+            color:yellow;
+            font-size: 80px;
+            background-color: blue;
+            cursor: pointer;
+            transition:background-color 0.5s ease;
+        }
+        #container button:hover{
+            background-color: white;
+            color:black;
+        }
+        #result{
+            font-size:5rem;
+        }
+        .win{
+            color:green;
+        }
+        .lose{
+            color:red;
+        }
+        #scoreboard{
+            font-size: large;
+            font-weight: bold;
+        }
+        @media screen and (max-width: 768px) {
+            #container button {
+                font-size: 50px;
+                min-width: 120px;
+            }
+            #result {
+                font-size: 4rem;
+            }
+            #scoreboard {
+                font-size: medium;
+            }
+        }
+    
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            #container button {
+                font-size: 40px;
+                min-width: 100px;
+            }
+            #result {
+                font-size: 3rem;
+            }
+            #scoreboard {
+                font-size: small;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <h1 id="heading"> Stone- Paper- Scissors</h1>
+    <div id="container">
+        <button onclick="playgame('stone')">👊</button>
+        <button onclick="playgame('paper')">✋</button>
+        <button onclick="playgame('scissors')">✌</button>
+    </div>
+    <div id="choices">
+        <h1 id="userdisplay">&nbsp;&nbsp;Player:</h1>
+        <h1 id="computerdisplay">Computer:</h1>
+    </div>
+    <h1 id="result"></h1>
+    <div id="scoreboard">
+        <p id="userscore">UserScore:<span>0</span></p>
+        <p id="computerscore">ComputerScore:<span>0</span></p>
+    </div>
+    <script defer>
+        const choices= ["stone","paper","scissors"];
+        const userdisplay=document.getElementById('userdisplay');
+        const computerdisplay=document.getElementById('computerdisplay');
+        const result=document.getElementById('result');
+        const userscore=document.getElementById('userscore');
+        const compscore=document.getElementById('computerscore');
+        let playerscore=0;
+        let computerscore=0;
+        function playgame(userchoice){
+            computerchoice=choices[Math.floor(Math.random()*3)];
+            let resultcontent="";
+            if(userchoice===computerchoice){
+                resultcontent= "The game is tie";
+            }
+            else{
+                switch(userchoice){
+                    case "stone":
+                        resultcontent=computerchoice=="scissors"? "You Win": "You Lose";
+                        break;
+                    case "paper":
+                        resultcontent=computerchoice=="stone" ? "You Win" : "You Lose";
+                        break;
+                    case "scissors":
+                        resultcontent=computerchoice=="paper" ? "You Win" : "You Lose";
+                        break;
+                }
+            }
+            userdisplay.textContent=`  Player:  ${userchoice}`;
+            computerdisplay.textContent=`Computer: ${computerchoice}`;
+            result.textContent=resultcontent;
+            result.classList.remove("win")
+            result.classList.remove("lose");
+
+            switch(resultcontent){
+                case "You Win":
+                    result.classList.add("win");
+                    playerscore++;
+                    userscore.textContent=`  Userscore:  ${playerscore}`;
+                    break;
+                case "You Lose":
+                    result.classList.add("lose");
+                    computerscore++;
+                    compscore.textContent=`Computerscore: ${computerscore}`;
+                    break;
+            }
+
+
+        }
+    </script>
+
+
+</body>
+</html>
+    
